@@ -1,0 +1,10 @@
+[project]
+name = "weather-bcn"
+
+
+[service]
+name = "weather-bot"
+start = "gunicorn --bind 0.0.0.0:$PORT main:app"
+
+
+# En este template no dejamos un servidor web; en Railway crea un Scheduled Job que ejecute `python main.py` a las 12:00 y 20:00 CET/CEST.
