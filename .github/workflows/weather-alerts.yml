@@ -1,0 +1,37 @@
+name: AEMET Weather Alerts
+
+on:
+  schedule:
+    # 4AM Madrid -> 3AM UTC
+    - cron: '0 3 * * *'
+    # 12PM Madrid -> 11AM UTC
+    - cron: '0 11 * * *'
+    # 3PM Madrid -> 2PM UTC
+    - cron: '0 14 * * *'
+
+  workflow_dispatch:  # permite ejecución manual
+
+jobs:
+  run-weather-alerts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run main.py
+        env:
+          AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DEBUG: "false"
+        run: python main.py
