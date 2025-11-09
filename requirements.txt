@@ -2,3 +2,4 @@ requests==2.31.0
 gunicorn==20.1.0
 python-dotenv==1.0.0
 pytz==2025.2
+matplotlib==3.8.1
