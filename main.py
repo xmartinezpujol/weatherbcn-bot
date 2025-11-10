@@ -81,7 +81,7 @@ def compute_hour_conditions(hour_entry):
 
 def fetch_aemet_hourly_forecast():
     codigo_municipio = "08019"  # Barcelona
-    url = f"https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/{codigo_municipio}"
+    url = f"https://proxy-aemet-production.up.railway.app/aemet/{codigo_municipio}"
     r = requests.get(url, headers=AEMET_HEADERS, timeout=15)
     r.raise_for_status()
     meta = r.json()
